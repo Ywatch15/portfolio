@@ -22,6 +22,10 @@ app.use(helmet())
 app.use(cors({
   origin: (origin, cb) => {
     if (!origin) return cb(null, true) // allow curl/postman
+    // If no FRONTEND_ORIGIN set, allow all (useful on Vercel previews)
+    if (!config.frontendOrigin || (Array.isArray(config.frontendOrigin) && !config.frontendOrigin.length)) {
+      return cb(null, true)
+    }
     const ok = Array.isArray(config.frontendOrigin)
       ? config.frontendOrigin.includes(origin)
       : origin === config.frontendOrigin
