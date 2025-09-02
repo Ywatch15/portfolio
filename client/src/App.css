@@ -1,0 +1,48 @@
+/* Decorative underline for nav links */
+.nav-link {
+	position: relative;
+}
+.nav-link::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	bottom: -4px;
+	width: 0%;
+	height: 2px;
+	background: linear-gradient(90deg, #6366f1, #a855f7, #14b8a6);
+	transition: width .3s ease;
+}
+.nav-link:hover::after, .nav-link.is-active::after {
+	width: 100%;
+}
+
+/* Gradient border utility */
+.gradient-border {
+	padding: 1px; /* inner border size */
+	border-radius: .5rem;
+	background: linear-gradient(135deg, rgba(99,102,241,.6), rgba(168,85,247,.5), rgba(20,184,166,.5));
+}
+
+/* Glass pane backdrop */
+.glass-pane {
+	background: rgba(17, 24, 39, 0.6);
+	-webkit-backdrop-filter: blur(8px);
+	backdrop-filter: blur(8px);
+	border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Floating animation for subtle orbs */
+@keyframes floatSlow {
+	0% { transform: translateY(0px) translateX(0px) scale(1); }
+	50% { transform: translateY(-8px) translateX(4px) scale(1.02); }
+	100% { transform: translateY(0px) translateX(0px) scale(1); }
+}
+.float-slow {
+	animation: floatSlow 8s ease-in-out infinite;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	.nav-link::after { transition: none; }
+	.float-slow { animation: none; }
+}

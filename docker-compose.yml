@@ -1,0 +1,29 @@
+version: '3.9'
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+  server:
+    build: ./server
+    environment:
+      - NODE_ENV=production
+      - PORT=4001
+      - FRONTEND_ORIGIN=http://localhost:8080
+      - MONGO_URI=mongodb://mongo:27017/portfolio
+      - JWT_SECRET=devsecret
+    depends_on:
+      - mongo
+    ports:
+      - "4001:4001"
+  client:
+    build: ./client
+    depends_on:
+      - server
+    ports:
+      - "8080:80"
+volumes:
+  mongo_data:
