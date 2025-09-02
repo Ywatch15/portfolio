@@ -1,12 +1,13 @@
 services:
   - type: web
     name: portfolio-server
-    env: node
+    runtime: node
     rootDir: server
     plan: free
     autoDeploy: true
     buildCommand: npm ci
     startCommand: npm start
+    healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV
         value: production
@@ -19,13 +20,14 @@ services:
       - key: FRONTEND_ORIGIN
         value: "https://your-client.onrender.com"
 
-staticSites:
-  - name: portfolio-client
+  - type: web
+    name: portfolio-client
+    runtime: static
     rootDir: client
     plan: free
     autoDeploy: true
     buildCommand: npm ci && npm run build
-    publishPath: dist
+    staticPublishPath: dist
     envVars:
       # After server deploys, set this to https://<server-domain>/api
       - key: VITE_API_BASE_URL
