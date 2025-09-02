@@ -3,7 +3,7 @@ services:
     name: portfolio-server
     runtime: node
     rootDir: server
-  plan: starter
+    plan: starter
     autoDeploy: true
     buildCommand: npm ci
     startCommand: npm start
@@ -24,7 +24,7 @@ services:
     name: portfolio-client
     runtime: static
     rootDir: client
-  plan: starter
+    plan: starter
     autoDeploy: true
     buildCommand: npm ci && npm run build
     staticPublishPath: dist
