@@ -10,24 +10,22 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
-      - key: PORT
-        value: 10000
       # Optional, app degrades gracefully without DB
       - key: MONGO_URI
         value: ""
       - key: JWT_SECRET
         generateValue: true
-      # Set this to your client URL after it deploys (e.g., https://your-client.onrender.com or Vercel domain)
+      # Update after client is deployed to the actual static site domain (comma-separated allowed)
       - key: FRONTEND_ORIGIN
-        value: "http://localhost:5173"
+        value: "https://your-client.onrender.com"
 
-  - type: static_site
-    name: portfolio-client
+staticSites:
+  - name: portfolio-client
     rootDir: client
     plan: free
     autoDeploy: true
     buildCommand: npm ci && npm run build
-    staticPublishPath: dist
+    publishPath: dist
     envVars:
       # After server deploys, set this to https://<server-domain>/api
       - key: VITE_API_BASE_URL
