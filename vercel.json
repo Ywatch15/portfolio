@@ -4,10 +4,15 @@
     { "src": "api/index.mjs", "use": "@vercel/node" },
     { "src": "client/package.json", "use": "@vercel/static-build", "config": { "distDir": "dist" } }
   ],
+  "functions": {
+    "api/index.mjs": {
+      "includeFiles": "server/public/**"
+    }
+  },
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/index.mjs" },
     { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/client/dist/index.html" }
+    { "src": "/(.*)", "dest": "/index.html" }
   ],
   "env": {
     "NODE_ENV": "production"
